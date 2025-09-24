@@ -1603,14 +1603,20 @@
 				});
 
 				function gouback() {
+					var url =getQueryParam("site");
 					// 点击返回按钮时执行
 					if (document.referrer !== "") {
 						// 有来源页，返回上一页
 						window.history.back();
 					} else {
 						// 没有来源页，跳转首页
-						alert("您的上一个页面已丢失");
-						window.location.href = "/";
+						if(url){
+							window.location.href = url;
+						}else{
+							alert("您的上一个页面已丢失");
+							window.location.href = "/";
+						}
+						
 					}
 				}
 			</script>
