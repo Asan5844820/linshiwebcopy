@@ -1095,7 +1095,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="main">
 					<p class="main-title-green">
 					</p>
@@ -1107,7 +1107,7 @@
 								<div class="address-text">TRWsKX6L4U9QKzqKkYFEYjBJYn66666666</div>
 								<div class="copy-hint">点击复制地址</div>
 							</div>
-					
+
 							<!-- 倒计时 -->
 							<div class="countdown-container">
 								<div class="countdown-label">订单有效期</div>
@@ -1132,7 +1132,7 @@
 							    支付完成之后，请点击此处刷新，获得发货卡密
 							</div> -->
 						</div>
-					
+
 						<div class="machine-code-container">
 							<button class="btn btn-get-machine-code" onclick="refreshMachineCode()">
 								支付完成后 点击此处获得发货卡密
@@ -1150,33 +1150,33 @@
 								</div>
 							</div>
 						</div>
-					
+
 						<!-- 进度检查 -->
 						<div class="progress-container">
 							<div class="main-notice">
-					
+
 								注意：如果你还未获取发货卡密，请先去查看你的钱包交易记录，是否确认支付成功，然后再来此点击上方刷新获取发货卡密
 							</div>
 						</div>
-					
+
 						<!-- 客服支持 -->
 						<div class="support-container">
 							<div class="support-notice">
 								如果你有其它疑问，请联系官方Telegram频道客服进行解决。
 							</div>
 						</div>
-					
+
 						<!-- 返回按钮 -->
 						<div style="text-align: center;">
-							<a href="index.html" class="btn btn-secondary">
+							<a onclick="gouback()" class="btn btn-secondary">
 								返回第一页
 							</a>
 						</div>
-					
-					
+
+
 					</div>
-					
-					
+
+
 
 					<div id="qrcode-container" style="width:100%; display: flex;justify-content: center">
 						<div id="qrcode" style="width:100%; display: flex;justify-content: center"></div>
@@ -1195,7 +1195,7 @@
 					<div class="modal-body">
 						<div class="modal-icon">💳</div>
 						<p class="modal-text">请先去查看你的钱包是否已经成功支付USDT</p>
-						<p class="modal-subtitle">确认支付完成后，点击"确认支付"获取机器码</p>
+						<p class="modal-subtitle">确认支付完成后，点击"确认支付"获取发货卡密</p>
 					</div>
 					<div class="modal-footer">
 						<button class="btn btn-confirm" onclick="confirmPayment()">确认支付</button>
@@ -1250,229 +1250,229 @@
 				}
 			</script>
 			<script>
-						// 全局变量
-						let orderInfo = {};
-						let refreshTimer = null;
-						let refreshAttempts = 0;
-						const MAX_REFRESH_ATTEMPTS = 20; // 最多尝试20次
-			
-						// 进入软件使用功能（假按钮）
-						function enterSoftware() {
-							const machineCodeInput = document.getElementById('machineCodeInput');
-							const inputValue = machineCodeInput.value.trim();
-			
-							if (inputValue === '') {
-								showMessage('请先输入发货卡密', 'error');
-								machineCodeInput.focus();
-								return;
-							}
-			
-							// 简单验证机器码格式（以MC-AI开头）
-							if (inputValue.startsWith('MC-AI-2024-') && inputValue.length >= 20) {
-								showMessage('发货卡密验证成功！正在启动软件...', 'success');
-			
-								// 模拟启动过程
-								setTimeout(() => {
-									showMessage('软件启动完成，请查看桌面应用程序', 'info');
-								}, 2000);
-							} else {
-								showMessage('请输入正确的发货卡密', 'error');
-								machineCodeInput.focus();
-								machineCodeInput.select();
-							}
+				// 全局变量
+				let orderInfo = {};
+				let refreshTimer = null;
+				let refreshAttempts = 0;
+				const MAX_REFRESH_ATTEMPTS = 20; // 最多尝试20次
+
+				// 进入软件使用功能（假按钮）
+				function enterSoftware() {
+					const machineCodeInput = document.getElementById('machineCodeInput');
+					const inputValue = machineCodeInput.value.trim();
+
+					if (inputValue === '') {
+						showMessage('请先输入发货卡密', 'error');
+						machineCodeInput.focus();
+						return;
+					}
+
+					// 简单验证机器码格式（以MC-AI开头）
+					if (inputValue.startsWith('MC-AI-2024-') && inputValue.length >= 20) {
+						showMessage('发货卡密验证成功！正在启动软件...', 'success');
+
+						// 模拟启动过程
+						setTimeout(() => {
+							showMessage('软件启动完成，请查看桌面应用程序', 'info');
+						}, 2000);
+					} else {
+						showMessage('请输入正确的发货卡密', 'error');
+						machineCodeInput.focus();
+						machineCodeInput.select();
+					}
+				}
+
+				// 刷新获取机器码功能（假按钮）
+				function refreshMachineCode() {
+					// 显示支付确认弹窗
+					showModal();
+				}
+
+				// 显示弹窗
+				function showModal() {
+					const modal = document.getElementById('paymentModal');
+					modal.style.display = 'flex';
+					document.body.style.overflow = 'hidden'; // 防止背景滚动
+				}
+
+				// 关闭弹窗
+				function closeModal() {
+					const modal = document.getElementById('paymentModal');
+					modal.style.display = 'none';
+					document.body.style.overflow = 'auto'; // 恢复滚动
+				}
+
+				// 确认支付按钮
+				function confirmPayment() {
+					closeModal();
+					showMessage('支付确认中，正在验证转账记录...', 'info');
+
+					// 模拟验证过程
+					setTimeout(() => {
+						showMessage('支付确认中，请稍后再次尝试', 'info');
+					}, 2000);
+				}
+
+				// 前往钱包查看按钮
+				function checkWallet() {
+					closeModal();
+					showMessage('请在钱包中确认支付状态', 'info');
+				}
+
+				// 点击弹窗外部关闭弹窗
+				document.addEventListener('click', function(event) {
+					const modal = document.getElementById('paymentModal');
+					if (event.target === modal) {
+						closeModal();
+					}
+				});
+
+				// ESC键关闭弹窗
+				document.addEventListener('keydown', function(event) {
+					if (event.key === 'Escape') {
+						closeModal();
+					}
+				});
+
+				// 页面加载时初始化
+				document.addEventListener('DOMContentLoaded', function() {
+
+					/*
+									// 获取订单信息（如果需要）
+									const orderNumber = document.getElementById('orderNumber').textContent;
+									console.log('当前订单号:', orderNumber);
+					*/
+					// 聚焦到输入框
+					const machineCodeInput = document.getElementById('machineCodeInput');
+					if (machineCodeInput) {
+						machineCodeInput.focus();
+					}
+
+					// 启动倒计时
+					//startCountdown();
+				});
+
+				// 倒计时功能
+				function startCountdown() {
+					// 设置1小时倒计时 (3600秒)
+					let totalSeconds = 3600;
+
+					const minutesElement = document.getElementById('minutes');
+					const secondsElement = document.getElementById('seconds');
+					const countdownContainer = document.querySelector('.countdown-container');
+
+					function updateCountdown() {
+						if (totalSeconds <= 0) {
+							// 倒计时结束
+							minutesElement.textContent = '00';
+							secondsElement.textContent = '00';
+							countdownContainer.classList.add('countdown-expired');
+							document.querySelector('.countdown-label').textContent = '订单已过期';
+							document.querySelector('.countdown-hint').textContent = '请重新创建订单';
+							showMessage('订单已过期，请返回首页重新创建订单', 'error');
+							return;
 						}
-			
-						// 刷新获取机器码功能（假按钮）
-						function refreshMachineCode() {
-							// 显示支付确认弹窗
-							showModal();
+
+						const minutes = Math.floor(totalSeconds / 60);
+						const seconds = totalSeconds % 60;
+
+						minutesElement.textContent = minutes.toString().padStart(2, '0');
+						secondsElement.textContent = seconds.toString().padStart(2, '0');
+
+						totalSeconds--;
+
+						// 最后10分钟时添加紧急提醒
+						if (totalSeconds === 600) { // 10分钟
+							showMessage('订单将在10分钟后过期，请尽快完成支付', 'error');
+						} else if (totalSeconds === 300) { // 5分钟
+							showMessage('订单将在5分钟后过期！', 'error');
+						} else if (totalSeconds === 60) { // 1分钟
+							showMessage('订单将在1分钟后过期！！', 'error');
 						}
-			
-						// 显示弹窗
-						function showModal() {
-							const modal = document.getElementById('paymentModal');
-							modal.style.display = 'flex';
-							document.body.style.overflow = 'hidden'; // 防止背景滚动
-						}
-			
-						// 关闭弹窗
-						function closeModal() {
-							const modal = document.getElementById('paymentModal');
-							modal.style.display = 'none';
-							document.body.style.overflow = 'auto'; // 恢复滚动
-						}
-			
-						// 确认支付按钮
-						function confirmPayment() {
-							closeModal();
-							showMessage('支付确认中，正在验证转账记录...', 'info');
-			
-							// 模拟验证过程
-							setTimeout(() => {
-								showMessage('支付确认中，请稍后再次尝试', 'info');
-							}, 2000);
-						}
-			
-						// 前往钱包查看按钮
-						function checkWallet() {
-							closeModal();
-							showMessage('请在钱包中确认支付状态', 'info');
-						}
-			
-						// 点击弹窗外部关闭弹窗
-						document.addEventListener('click', function(event) {
-							const modal = document.getElementById('paymentModal');
-							if (event.target === modal) {
-								closeModal();
-							}
+					}
+
+					// 立即更新一次
+					updateCountdown();
+
+					// 每秒更新
+					setInterval(updateCountdown, 1000);
+				}
+
+				// 复制地址功能
+				function copyAddress() {
+					const addressElement = document.querySelector('.address-text');
+					const address = addressElement.textContent.trim();
+
+					if (navigator.clipboard && window.isSecureContext) {
+						navigator.clipboard.writeText(address).then(() => {
+							showMessage('收款地址已复制到剪贴板', 'success');
+							highlightElement(addressElement);
+						}).catch(() => {
+							fallbackCopyText(address);
 						});
-			
-						// ESC键关闭弹窗
-						document.addEventListener('keydown', function(event) {
-							if (event.key === 'Escape') {
-								closeModal();
-							}
-						});
-			
-						// 页面加载时初始化
-						document.addEventListener('DOMContentLoaded', function() {
-							
-			/*
-							// 获取订单信息（如果需要）
-							const orderNumber = document.getElementById('orderNumber').textContent;
-							console.log('当前订单号:', orderNumber);
-			*/
-							// 聚焦到输入框
-							const machineCodeInput = document.getElementById('machineCodeInput');
-							if (machineCodeInput) {
-								machineCodeInput.focus();
-							}
-			
-							// 启动倒计时
-							//startCountdown();
-						});
-			
-						// 倒计时功能
-						function startCountdown() {
-							// 设置1小时倒计时 (3600秒)
-							let totalSeconds = 3600;
-			
-							const minutesElement = document.getElementById('minutes');
-							const secondsElement = document.getElementById('seconds');
-							const countdownContainer = document.querySelector('.countdown-container');
-			
-							function updateCountdown() {
-								if (totalSeconds <= 0) {
-									// 倒计时结束
-									minutesElement.textContent = '00';
-									secondsElement.textContent = '00';
-									countdownContainer.classList.add('countdown-expired');
-									document.querySelector('.countdown-label').textContent = '订单已过期';
-									document.querySelector('.countdown-hint').textContent = '请重新创建订单';
-									showMessage('订单已过期，请返回首页重新创建订单', 'error');
-									return;
-								}
-			
-								const minutes = Math.floor(totalSeconds / 60);
-								const seconds = totalSeconds % 60;
-			
-								minutesElement.textContent = minutes.toString().padStart(2, '0');
-								secondsElement.textContent = seconds.toString().padStart(2, '0');
-			
-								totalSeconds--;
-			
-								// 最后10分钟时添加紧急提醒
-								if (totalSeconds === 600) { // 10分钟
-									showMessage('订单将在10分钟后过期，请尽快完成支付', 'error');
-								} else if (totalSeconds === 300) { // 5分钟
-									showMessage('订单将在5分钟后过期！', 'error');
-								} else if (totalSeconds === 60) { // 1分钟
-									showMessage('订单将在1分钟后过期！！', 'error');
-								}
-							}
-			
-							// 立即更新一次
-							updateCountdown();
-			
-							// 每秒更新
-							setInterval(updateCountdown, 1000);
+					} else {
+						fallbackCopyText(address);
+					}
+				}
+
+				// 降级复制方法
+				function fallbackCopyText(text) {
+					const textArea = document.createElement('textarea');
+					textArea.value = text;
+					textArea.style.position = 'fixed';
+					textArea.style.opacity = '0';
+					textArea.style.left = '-9999px';
+					document.body.appendChild(textArea);
+					textArea.focus();
+					textArea.select();
+
+					try {
+						const successful = document.execCommand('copy');
+						if (successful) {
+							showMessage('收款地址已复制到剪贴板', 'success');
+						} else {
+							showMessage('复制失败，请手动复制地址', 'error');
 						}
-			
-						// 复制地址功能
-						function copyAddress() {
-							const addressElement = document.querySelector('.address-text');
-							const address = addressElement.textContent.trim();
-			
-							if (navigator.clipboard && window.isSecureContext) {
-								navigator.clipboard.writeText(address).then(() => {
-									showMessage('收款地址已复制到剪贴板', 'success');
-									highlightElement(addressElement);
-								}).catch(() => {
-									fallbackCopyText(address);
-								});
-							} else {
-								fallbackCopyText(address);
-							}
-						}
-			
-						// 降级复制方法
-						function fallbackCopyText(text) {
-							const textArea = document.createElement('textarea');
-							textArea.value = text;
-							textArea.style.position = 'fixed';
-							textArea.style.opacity = '0';
-							textArea.style.left = '-9999px';
-							document.body.appendChild(textArea);
-							textArea.focus();
-							textArea.select();
-			
-							try {
-								const successful = document.execCommand('copy');
-								if (successful) {
-									showMessage('收款地址已复制到剪贴板', 'success');
-								} else {
-									showMessage('复制失败，请手动复制地址', 'error');
-								}
-							} catch (err) {
-								console.error('复制失败:', err);
-								showMessage('复制失败，请手动复制地址', 'error');
-							}
-			
-							document.body.removeChild(textArea);
-						}
-			
-						// 高亮元素
-						function highlightElement(element) {
-							const originalBorder = element.style.border;
-							element.style.border = '2px solid #22c55e';
-							element.style.transition = 'border 0.3s ease';
-			
-							setTimeout(() => {
-								element.style.border = originalBorder;
-							}, 1000);
-						}
-			
-						// 显示消息
-						function showMessage(message, type = 'info') {
-							// 移除已存在的消息
-							const existingMsg = document.querySelector('.temp-message');
-							if (existingMsg) {
-								existingMsg.remove();
-							}
-			
-							// 创建消息元素
-							const msgElement = document.createElement('div');
-							msgElement.className = 'temp-message';
-							msgElement.textContent = message;
-			
-							// 根据类型设置颜色
-							const colors = {
-								success: 'rgba(34, 197, 94, 0.9)',
-								error: 'rgba(239, 68, 68, 0.9)',
-								info: 'rgba(59, 130, 246, 0.9)'
-							};
-			
-							msgElement.style.cssText = `
+					} catch (err) {
+						console.error('复制失败:', err);
+						showMessage('复制失败，请手动复制地址', 'error');
+					}
+
+					document.body.removeChild(textArea);
+				}
+
+				// 高亮元素
+				function highlightElement(element) {
+					const originalBorder = element.style.border;
+					element.style.border = '2px solid #22c55e';
+					element.style.transition = 'border 0.3s ease';
+
+					setTimeout(() => {
+						element.style.border = originalBorder;
+					}, 1000);
+				}
+
+				// 显示消息
+				function showMessage(message, type = 'info') {
+					// 移除已存在的消息
+					const existingMsg = document.querySelector('.temp-message');
+					if (existingMsg) {
+						existingMsg.remove();
+					}
+
+					// 创建消息元素
+					const msgElement = document.createElement('div');
+					msgElement.className = 'temp-message';
+					msgElement.textContent = message;
+
+					// 根据类型设置颜色
+					const colors = {
+						success: 'rgba(34, 197, 94, 0.9)',
+						error: 'rgba(239, 68, 68, 0.9)',
+						info: 'rgba(59, 130, 246, 0.9)'
+					};
+
+					msgElement.style.cssText = `
 			                position: fixed;
 			                top: 50%;
 			                left: 50%;
@@ -1489,12 +1489,12 @@
 			                text-align: center;
 			                animation: messageSlideIn 0.3s ease-out;
 			            `;
-			
-							// 添加动画样式
-							if (!document.querySelector('style[data-message-animation]')) {
-								const style = document.createElement('style');
-								style.setAttribute('data-message-animation', 'true');
-								style.textContent = `
+
+					// 添加动画样式
+					if (!document.querySelector('style[data-message-animation]')) {
+						const style = document.createElement('style');
+						style.setAttribute('data-message-animation', 'true');
+						style.textContent = `
 			                    @keyframes messageSlideIn {
 			                        from { 
 			                            opacity: 0; 
@@ -1506,101 +1506,114 @@
 			                        }
 			                    }
 			                `;
-								document.head.appendChild(style);
-							}
-			
-							document.body.appendChild(msgElement);
-			
-							// 自动移除消息
-							const removeTime = type === 'error' ? 5000 : 3000;
+						document.head.appendChild(style);
+					}
+
+					document.body.appendChild(msgElement);
+
+					// 自动移除消息
+					const removeTime = type === 'error' ? 5000 : 3000;
+					setTimeout(() => {
+						if (msgElement.parentNode) {
+							msgElement.style.opacity = '0';
+							msgElement.style.transform = 'translate(-50%, -50%) translateY(-20px) scale(0.9)';
 							setTimeout(() => {
 								if (msgElement.parentNode) {
-									msgElement.style.opacity = '0';
-									msgElement.style.transform = 'translate(-50%, -50%) translateY(-20px) scale(0.9)';
-									setTimeout(() => {
-										if (msgElement.parentNode) {
-											msgElement.parentNode.removeChild(msgElement);
-										}
-									}, 300);
+									msgElement.parentNode.removeChild(msgElement);
 								}
-							}, removeTime);
+							}, 300);
 						}
-			
-						// 模拟支付成功（测试用函数）
-						function simulateSuccess() {
-							// 生成一个模拟的机器码
-							const timestamp = Date.now().toString(36);
-							const random1 = Math.random().toString(36).substring(2, 6).toUpperCase();
-							const random2 = Math.random().toString(36).substring(2, 6).toUpperCase();
-							const random3 = Math.random().toString(36).substring(2, 6).toUpperCase();
-							const mockMachineCode = `MC-AI-2024-${random1}-${random2}-${random3}`;
-			
-							// 停止自动刷新
-							stopAutoRefresh();
-			
-							// 显示机器码
-							showMachineCode(mockMachineCode);
-			
-							// 清除本地订单信息
-							localStorage.removeItem('currentOrder');
-			
-							showMessage('模拟支付成功！机器码已生成', 'success');
-			
-							// 更新按钮状态
-							const refreshButton = document.querySelector('.btn-primary');
-							refreshButton.disabled = false;
-							refreshButton.textContent = '已完成';
-							refreshButton.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
+					}, removeTime);
+				}
+
+				// 模拟支付成功（测试用函数）
+				function simulateSuccess() {
+					// 生成一个模拟的机器码
+					const timestamp = Date.now().toString(36);
+					const random1 = Math.random().toString(36).substring(2, 6).toUpperCase();
+					const random2 = Math.random().toString(36).substring(2, 6).toUpperCase();
+					const random3 = Math.random().toString(36).substring(2, 6).toUpperCase();
+					const mockMachineCode = `MC-AI-2024-${random1}-${random2}-${random3}`;
+
+					// 停止自动刷新
+					stopAutoRefresh();
+
+					// 显示机器码
+					showMachineCode(mockMachineCode);
+
+					// 清除本地订单信息
+					localStorage.removeItem('currentOrder');
+
+					showMessage('模拟支付成功！发货卡密已生成', 'success');
+
+					// 更新按钮状态
+					const refreshButton = document.querySelector('.btn-primary');
+					refreshButton.disabled = false;
+					refreshButton.textContent = '已完成';
+					refreshButton.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
+				}
+
+				// 页面离开时清理
+				window.addEventListener('beforeunload', function() {
+					stopAutoRefresh();
+				});
+
+				// 页面隐藏/显示时的处理
+				document.addEventListener('visibilitychange', function() {
+					if (document.hidden) {
+						// 页面隐藏时停止自动刷新
+						stopAutoRefresh();
+					} else {
+						// 页面显示时恢复自动刷新（如果还没有机器码）
+						const machineCode = document.getElementById('machineCodeText');
+						if (!machineCode.style.display || machineCode.style.display === 'none') {
+							startAutoRefresh();
 						}
-			
-						// 页面离开时清理
-						window.addEventListener('beforeunload', function() {
-							stopAutoRefresh();
-						});
-			
-						// 页面隐藏/显示时的处理
-						document.addEventListener('visibilitychange', function() {
-							if (document.hidden) {
-								// 页面隐藏时停止自动刷新
-								stopAutoRefresh();
-							} else {
-								// 页面显示时恢复自动刷新（如果还没有机器码）
-								const machineCode = document.getElementById('machineCodeText');
-								if (!machineCode.style.display || machineCode.style.display === 'none') {
-									startAutoRefresh();
-								}
-							}
-						});
-						function getQueryParam(key) {
-						  return new URLSearchParams(window.location.search).get(key);
-						}
-						$(function(){
-						startCountdown();
-							/*	var title=getQueryParam('title');
-							console.log(title);
-							if(title){
-								
-								$(".navtitle").html(title);
-							}
-							var price=getQueryParam('price');
-							if(price){
-								$("#paymentAmount").html(price);
-							}
-							var goodname=getQueryParam('goodname');
-							if(goodname){
-								$("#goodname").html(goodname);
-							}
-							var order=getQueryParam('order');
-							if(order){
-								$("#orderNumber").html(order);
-							}
-							  let now = new Date();
-							//当前时间
-							$("#addtime").html(now.toLocaleString())
-							
-							*/
-						});
-					</script>
+					}
+				});
+
+				function getQueryParam(key) {
+					return new URLSearchParams(window.location.search).get(key);
+				}
+				$(function() {
+					startCountdown();
+					/*	var title=getQueryParam('title');
+					console.log(title);
+					if(title){
+						
+						$(".navtitle").html(title);
+					}
+					var price=getQueryParam('price');
+					if(price){
+						$("#paymentAmount").html(price);
+					}
+					var goodname=getQueryParam('goodname');
+					if(goodname){
+						$("#goodname").html(goodname);
+					}
+					var order=getQueryParam('order');
+					if(order){
+						$("#orderNumber").html(order);
+					}
+					  let now = new Date();
+					//当前时间
+					$("#addtime").html(now.toLocaleString())
+					
+					*/
+				});
+
+				function gouback() {
+					// 点击返回按钮时执行
+					if (document.referrer !== "") {
+						// 有来源页，返回上一页
+						window.history.back();
+					} else {
+						// 没有来源页，跳转首页
+						alert("您的上一个页面已丢失");
+						window.location.href = "/";
+					}
+				}
+			</script>
 
 
 
